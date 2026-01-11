@@ -1,4 +1,4 @@
-const todo=require("../Models/Todo")
+const Todo=require("../Models/Todo")
 
 exports.createTodo=async(req,res)=>{
     try{
@@ -6,7 +6,7 @@ exports.createTodo=async(req,res)=>{
         const {title,description}=req.body
         console.log(req)
         // create document
-        const newTodo=await todo.create({title,description})
+        const newTodo=await Todo.create({title,description})
         console.log("new todod",newTodo)
         // send resposnse
         res.status(201).json({
