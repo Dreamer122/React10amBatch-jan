@@ -4,7 +4,7 @@ exports.createTodo=async(req,res)=>{
     try{
         // get data from request body
         const {title,description}=req.body
-        console.log(req)
+        // console.log(req)
         // create document
         const newTodo=await Todo.create({title,description})
         console.log("new todod",newTodo)
