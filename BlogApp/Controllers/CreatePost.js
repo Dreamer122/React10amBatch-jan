@@ -1,4 +1,6 @@
 const POST=require("../Models/PostSchema")
+const LIKE=require("../Models/LikeSchema")
+const COMMENT=require("../Models/CommentSchema")
 
 exports.createPost=async(req,res)=>{
     try{
@@ -41,3 +43,38 @@ catch(error){
 }
 
 // find a post by id
+
+// delete a post by id
+exports.deletedPost=async(req,res)=>{
+    try{
+        const {id}=req.body
+        // const {id}=req.params
+
+       const deletedpost= await POST.findByIdAndDelete(id)
+       console.log("deletedpost",deletedpost)
+        const likesarray=deletedpost.likes
+        console.log("likesarray",likesarray)
+    likesarray.forEach(async (likeid) => {
+         await LIKE.findByIdAndDelete(likeid)
+            
+        });
+        const commentarray=deletedpost.comment
+ commentarray.forEach(async (commentid) => {
+         await COMMENT.findByIdAndDelete(commentid)
+            
+        });
+
+       res.status(200).json({
+        message:"post deleted successfully",
+        success:true,
+        data:deletedpost
+       })
+    }
+    catch(error){
+        res.status(500).json({
+            success:false,
+            message:error.message
+        })
+
+    }
+}
