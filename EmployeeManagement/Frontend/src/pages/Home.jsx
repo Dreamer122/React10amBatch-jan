@@ -1,23 +1,27 @@
 import React,{useEffect,useState} from 'react'
-import { getdata } from '../../utils/getfunction'
+import { useCallApi,handleDelete} from '../../utils/getfunction'
 import EmployeeCard from '../Components/EmployeeCard'
 export const Home = () => {
     const [allemp,setallemp]=useState([])
+    const data=useCallApi(`${import.meta.env.VITE_BASE_URL}getallemp`)
+   console.log(data)
 
-    const get=async()=>{
-       const res=await getdata("http://localhost:3000/api/v1/getallemp")
-         console.log(res)
-         if(res.status==200){
-         setallemp(res.data.data)
+   const deleteemp=async(id)=>{
+    handleDelete(id)
+    const newdata=allemp.filter((emp)=>emp._id!==id)
+    setallemp(newdata)
 
-         }
-    }
+   }
+
+
+
 
     useEffect(()=>{
-        get()
-    },[])
+       setallemp(data)
+    },[data])
 
-    if(allemp.length==0){
+
+    if(allemp?.length==0){
         return <p>Loading...</p>
     }
 
@@ -29,7 +33,7 @@ export const Home = () => {
 
    {
     allemp?.map((emp)=>{
-        return <EmployeeCard key={emp._id} obj={emp}/>
+        return <EmployeeCard key={emp._id} obj={emp} handleDelete={deleteemp}/>
     })
    }
    </div>

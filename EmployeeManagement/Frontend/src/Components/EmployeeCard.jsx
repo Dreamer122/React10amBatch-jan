@@ -1,9 +1,10 @@
 import React from "react";
 import { FaPhone, FaEnvelope, FaUser } from "react-icons/fa";
 import { Link } from "react-router";
-const EmployeeCard = ({ obj }) => {
+const EmployeeCard = ({ obj,handleDelete }) => {
   const { firstName, lastName, email, phone } = obj;
 
+ 
   return (
     <div className="w-full sm:w-[350px] bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-6 border border-gray-200 hover:shadow-2xl hover:scale-105 transition-all duration-300">
       
@@ -38,11 +39,11 @@ const EmployeeCard = ({ obj }) => {
         
         </Link>
 
-        <button className="flex-1 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+        <Link to={`/Edit/${obj._id}`} className="flex-1 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
           Edit
-        </button>
+        </Link>
 
-        <button className="flex-1 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+        <button onClick={()=>handleDelete(obj._id)} className="flex-1 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
           Delete
         </button>
       </div>

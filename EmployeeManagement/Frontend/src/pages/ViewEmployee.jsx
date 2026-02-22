@@ -1,24 +1,21 @@
 import React, { useEffect } from "react";
 import { FaUserTie, FaPhone, FaEnvelope, FaMapMarkerAlt, FaBriefcase, FaMoneyBillWave } from "react-icons/fa";
-import { getdata } from "../../utils/getfunction";
+import { useCallApi } from "../../utils/getfunction";
 import { Link, useParams } from "react-router";
 const ViewEmployee = () => {
     const {id}=useParams()
     const [emp,setemp]=React.useState({})
 
-    const getemp=async()=>{
-        const res=await getdata(`http://localhost:3000/api/v1/getallempbyid/${id}`)
-        console.log(res)
-        if(res.status==200){
-            setemp(res.data.data)
-        }   
-
-    }
+    const data=useCallApi(`${import.meta.env.VITE_BASE_URL}getallempbyid/${id}`)
+   console.log(data)
     useEffect(()=>{
-        getemp()
-    },[id])
+      if(data){
+      setemp(data)
+      }
+    },[id,data])
 
   return (
+   
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       
       <div className="w-full max-w-3xl bg-white shadow-2xl rounded-3xl overflow-hidden">
@@ -29,10 +26,10 @@ const ViewEmployee = () => {
             <FaUserTie />
           </div>
           <h1 className="text-2xl md:text-3xl font-bold">
-            {emp.firstName} {emp.lastName}
+            {emp?.firstName} {emp?.lastName}
           </h1>
           <p className="text-blue-100 mt-2">
-            {emp.position}
+            {emp?.position}
 
           </p>
         </div>
@@ -45,7 +42,7 @@ const ViewEmployee = () => {
             <div>
               <p className="text-gray-500 text-sm">Position</p>
               <p className="font-semibold text-gray-800">
-                {emp.position}
+                {emp?.position}
                 </p>
             </div>
           </div>
@@ -55,7 +52,7 @@ const ViewEmployee = () => {
             <div>
               <p className="text-gray-500 text-sm">Salary</p>
               <p className="font-semibold text-gray-800">₹ 
-                {emp.salary}
+                {emp?.salary}
                 </p>
             </div>
           </div>
@@ -65,7 +62,7 @@ const ViewEmployee = () => {
             <div>
               <p className="text-gray-500 text-sm">Email</p>
               <p className="font-semibold text-gray-800">
-                {emp.email}
+                {emp?.email}
                 </p>
             </div>
           </div>
@@ -75,7 +72,7 @@ const ViewEmployee = () => {
             <div>
               <p className="text-gray-500 text-sm">Phone</p>
               <p className="font-semibold text-gray-800">
-                {emp.phone}
+                {emp?.phone}
                 </p>
             </div>
           </div>
@@ -85,7 +82,7 @@ const ViewEmployee = () => {
             <div>
               <p className="text-gray-500 text-sm">Address</p>
               <p className="font-semibold text-gray-800">
-                {emp.address}
+                {emp?.address}
                 </p>
             </div>
           </div>
@@ -104,7 +101,7 @@ const ViewEmployee = () => {
 
       </div>
     </div>
-  );
+  )
 };
 
 export default ViewEmployee;

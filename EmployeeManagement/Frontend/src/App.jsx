@@ -4,6 +4,7 @@ import {BrowserRouter, Routes,Route} from "react-router"
 import { Addemp } from './pages/Addemp'
 import { Navbar } from "./Components/Navbar"
 import ViewEmployee from './pages/ViewEmployee'
+import {Edit} from "./pages/Edit"
 const App = () => {
   const obj={
      firstName:"sudarshan",
@@ -38,6 +39,7 @@ const App = () => {
    <Routes>
 <Route path="/" element={<Home/>}/>
 <Route path="/addemp" element={<Addemp/>}/>
+<Route path="/Edit/:id" element={<Edit/>}/>
 <Route path="/viewemp/:id" element={<ViewEmployee/>}/>
 
    </Routes>
