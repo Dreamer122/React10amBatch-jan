@@ -4,6 +4,8 @@ const bcrypt=require("bcrypt")
 const Profile=require("../Models/Profile")
 const otpGenerator = require('otp-generator')
 const jwt=require("jsonwebtoken")
+const {mailSender}=require("../Utils/mailSender")
+const {passwordUpdated}=require("../mail/passwordUpdate")
 
 // signup
 

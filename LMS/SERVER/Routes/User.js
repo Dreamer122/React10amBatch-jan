@@ -9,10 +9,10 @@ const {
   sendOTP,
   changePassword,
 } = require("../Controller/Auth")
-// const {
-//   forgetPasswordToken,
-//   forgetPassword,
-// } = require("../Controller/ForgotPassword.js")
+const {
+  forgetPasswordToken,
+  forgetPassword,
+} = require("../Controller/ForgotPassword.js")
 
 const { auth } = require("../Middleware/auth")
 
@@ -39,10 +39,10 @@ router.post("/changepassword", auth, changePassword)
 // ********************************************************************************************************
 
 // Route for generating a forget password token
-// router.post("/forget-password-token", forgetPasswordToken)
+router.post("/forget-password-token", forgetPasswordToken)
 
 // Route for forgetting user's password after verification
-// router.post("/forget-password", forgetPassword)
+router.post("/forget-password", forgetPassword)
 
 // Export the router for use in the main application
 module.exports = router
